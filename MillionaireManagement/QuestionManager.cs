@@ -1,5 +1,4 @@
-﻿using MillionaireManagement.Helpers;
-using MillionaireManagement.Models;
+﻿using MillionaireGame;
 using System;
 using System.Collections.Generic;
 using System.IO;
