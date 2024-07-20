@@ -1,86 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Security.Cryptography;
-
+using System.Text;
 
 namespace MillionaireGame
 {
+    /// <summary>
+    /// Provides methods for encrypting and decrypting strings.
+    /// </summary>
     public static class EncryptionHelper
     {
-        // Key and IV are used for AES encryption and decryption.
-        // These should be securely generated and stored.
-        private static readonly byte[] Key = Encoding.UTF8.GetBytes("your-encryption-key"); // Replace with your key
-        private static readonly byte[] IV = Encoding.UTF8.GetBytes("your-iv-vector"); // Replace with your IV
+        private static readonly string EncryptionKey = "your-encryption-key";
 
         /// <summary>
-        /// Encrypts a plain text string using AES encryption.
+        /// Encrypts a plain text string.
         /// </summary>
-        /// <param name="plainText">The text to be encrypted.</param>
-        /// <returns>The encrypted text as a base64 string.</returns>
+        /// <param name="plainText">The plain text to encrypt.</param>
+        /// <returns>The encrypted string.</returns>
         public static string Encrypt(string plainText)
         {
+            byte[] plainBytes = Encoding.UTF8.GetBytes(plainText);
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Key;
-                aes.IV = IV;
-
-                //Create an encryptor object
-                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key,aes.IV);
-
-                //Use a memory stream to hld the encrypted data
+                using (Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x43, 0x87, 0x23, 0x72, 0x20, 0x65, 0x23, 0x24, 0x57, 0x67, 0x73, 0x39, 0x43, 0x45, 0x28, 0x93 }))
+                {
+                    aes.Key = key.GetBytes(32);
+                    aes.IV = key.GetBytes(16);
+                }
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    // Create a CryptoStream, which links the encryptor to the memory stream
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                    // Use a StreamWriter to write the plaintext to the CryptoStream, which will encrypt it
-                    using (StreamWriter sw = new StreamWriter(cs))
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        // Write the plaintext to the stream
-                        sw.Write(plainText);
+                        cs.Write(plainBytes, 0, plainBytes.Length);
+                        cs.Close();
                     }
-
-                    // Convert the encrypted data from the memory stream to a base64 string
                     return Convert.ToBase64String(ms.ToArray());
                 }
             }
         }
 
         /// <summary>
-        /// Decrypts an encrypted base64 string using AES encryption.
+        /// Decrypts an encrypted string.
         /// </summary>
-        /// <param name="cipherText">The encrypted text as a base64 string.</param>
-        /// <returns>The decrypted plain text.</returns>
-        public static string Decrypt(string plainText)
+        /// <param name="encryptedText">The encrypted string to decrypt.</param>
+        /// <returns>The decrypted plain text string.</returns>
+        public static string Decrypt(string encryptedText)
         {
-            // Convert the base64 string to a byte array
-            byte[] buffer = Convert.FromBase64String(plainText);
-
-            // Create a new instamce of AES class
+            byte[] cipherBytes = Convert.FromBase64String(encryptedText);
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Key;
-                aes.IV = IV;
-
-                // Create a decryptor object
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                // Use a memory stream to hold the encrypted data
-                using (MemoryStream ms = new MemoryStream(buffer))
+                using (Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x43, 0x87, 0x23, 0x72, 0x20, 0x65, 0x23, 0x24, 0x57, 0x67, 0x73, 0x39, 0x43, 0x45, 0x28, 0x93 }))
                 {
-                    // Create a CryptoStream, Whicch links the decryptor to the memory sttream
-                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
-                    // Use a StreamReader ro read the decrypted data from the CryptoStream
-                    using (StreamReader sr = new StreamReader(cs))
+                    aes.Key = key.GetBytes(32);
+                    aes.IV = key.GetBytes(16);
+                }
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
                     {
-                        // Read and return the decrypted data as a string
-                        return sr.ReadToEnd();
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
                     }
+                    return Encoding.UTF8.GetString(ms.ToArray());
                 }
             }
         }
-
     }
 }

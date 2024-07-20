@@ -6,7 +6,7 @@ namespace MillionaireManagement
 {
     public class Program
     {
-        static void main(string[] args)
+        static void Main(string[] args)
         {
             QuestionManager questionManager = new QuestionManager();
 
