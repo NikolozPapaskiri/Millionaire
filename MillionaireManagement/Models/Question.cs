@@ -8,11 +8,18 @@ namespace MillionaireManagement.Models
 {
     public class Question
     {
-        public int Number { get; set; }
         public string Text { get; set; }
         public List<string> Answers { get; set; }
         public int CorrectAnswerIndex { get; set; }
-        public int Cost { get; set; }
+        public string Value { get; set; }
+
+        public Question(string text, List<string> answers, int correctAnswerIndex, string value)
+        {
+            Text = text;
+            Answers = answers;
+            CorrectAnswerIndex = correctAnswerIndex;
+            Value = value;
+        }
     }
 
 }
