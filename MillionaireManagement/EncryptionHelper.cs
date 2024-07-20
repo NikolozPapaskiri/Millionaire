@@ -28,7 +28,7 @@ namespace MillionaireGame
                 aes.IV = IV;
 
                 //Create an encryptor object
-                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key,aes.IV);
 
                 //Use a memory stream to hld the encrypted data
                 using (MemoryStream ms = new MemoryStream())
