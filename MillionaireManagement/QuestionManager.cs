@@ -11,7 +11,7 @@ namespace MillionaireManagement
     /// </summary>
     public class QuestionManager
     {
-        private const string QuestionsFilePath = "questions.txt";
+        private string QuestionsFilePath = ConfigurationHelper.GetFilePath("QuestionsFilePath");
 
         /// <summary>
         /// Adds a new question to the list and saves it.

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MillionaireManagement\MillionaireManagement.csproj" />
+    <ProjectReference Include="..\MillionaireShared\MillionaireShared.csproj" />
   </ItemGroup>
 
 </Project>

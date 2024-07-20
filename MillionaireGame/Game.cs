@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MillionaireManagement;
+using MillionaireManagement; // Ensure the correct namespace is imported
 
 namespace MillionaireGame
 {
@@ -18,15 +18,32 @@ namespace MillionaireGame
         {
             _questionManager = questionManager;
             _gameHistory = gameHistory;
-            _questions = _questionManager.LoadQuestions(); // Use QuestionManager from MillionaireManagement
-            _currentQuestionIndex = 0;
-            _correctAnswers = 0;
-            _wrongAnswers = 0;
-            _amountWon = 0;
+            LoadQuestions(); // Call method to load questions
+        }
+
+        private void LoadQuestions()
+        {
+            _questions = _questionManager.LoadQuestions();
+
+            // Debug output to ensure questions are loaded
+            Console.WriteLine("Questions loaded:");
+            foreach (var question in _questions)
+            {
+                Console.WriteLine($"Question: {question.Text}");
+                Console.WriteLine($"Answers: {string.Join(", ", question.Answers)}");
+                Console.WriteLine($"Correct Answer Index: {question.CorrectAnswerIndex}");
+                Console.WriteLine($"Value: {question.Value}");
+            }
         }
 
         public void Start()
         {
+            if (_questions.Count == 0)
+            {
+                Console.WriteLine("No questions available. Exiting the game.");
+                return;
+            }
+
             while (_currentQuestionIndex < _questions.Count)
             {
                 Console.Clear();

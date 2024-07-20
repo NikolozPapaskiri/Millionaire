@@ -8,7 +8,7 @@ namespace MillionaireGame
     /// </summary>
     public class GameHistory
     {
-        private const string GameHistoryFilePath = "game-history.txt";
+        private string GameHistoryFilePath = ConfigurationHelper.GetFilePath("GameHistoryFilePath");
 
         /// <summary>
         /// Saves the game history to the file.
