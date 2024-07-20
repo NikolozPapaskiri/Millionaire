@@ -3,25 +3,27 @@ using System.IO;
 
 namespace MillionaireGame
 {
-    /// <summary>
-    /// Manages the saving of game history to a file.
-    /// </summary>
     public class GameHistory
     {
-        private string GameHistoryFilePath = ConfigurationHelper.GetFilePath("GameHistoryFilePath");
+        private readonly string _gameHistoryFilePath;
 
-        /// <summary>
-        /// Saves the game history to the file.
-        /// </summary>
-        /// <param name="startDate">The start date of the game.</param>
-        /// <param name="totalQuestions">The total number of questions.</param>
-        /// <param name="correctAnswers">The total number of correct answers.</param>
-        /// <param name="wrongAnswers">The total number of wrong answers.</param>
-        /// <param name="amountWon">The amount of money won by the player.</param>
+        public GameHistory()
+        {
+            // Initialize the file path using the configuration helper
+            _gameHistoryFilePath = ConfigurationHelper.GetFilePath("GameHistoryFilePath");
+        }
+
         public void SaveGameHistory(DateTime startDate, int totalQuestions, int correctAnswers, int wrongAnswers, int amountWon)
         {
-            string gameHistory = $"{startDate}, {totalQuestions}, {correctAnswers}, {wrongAnswers}, {amountWon}";
-            File.AppendAllText(GameHistoryFilePath, gameHistory + Environment.NewLine);
+            using (StreamWriter writer = new StreamWriter(_gameHistoryFilePath, true))
+            {
+                writer.WriteLine($"Start Date: {startDate}");
+                writer.WriteLine($"Total Questions: {totalQuestions}");
+                writer.WriteLine($"Correct Answers: {correctAnswers}");
+                writer.WriteLine($"Wrong Answers: {wrongAnswers}");
+                writer.WriteLine($"Amount Won: {amountWon}");
+                writer.WriteLine();
+            }
         }
     }
 }

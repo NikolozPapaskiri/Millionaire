@@ -6,17 +6,16 @@ using System.Text;
 
 namespace MillionaireManagement
 {
-    /// <summary>
-    /// Manages the loading, saving, and encryption of questions.
-    /// </summary>
     public class QuestionManager
     {
-        private string QuestionsFilePath = ConfigurationHelper.GetFilePath("QuestionsFilePath");
+        private readonly string _questionsFilePath;
 
-        /// <summary>
-        /// Adds a new question to the list and saves it.
-        /// </summary>
-        /// <param name="question">The question to add.</param>
+        public QuestionManager()
+        {
+            // Initialize the file path using the configuration helper
+            _questionsFilePath = ConfigurationHelper.GetFilePath("QuestionsFilePath");
+        }
+
         public void AddQuestion(Question question)
         {
             List<Question> questions = LoadQuestions();
@@ -24,31 +23,23 @@ namespace MillionaireManagement
             SaveQuestions(questions);
         }
 
-        /// <summary>
-        /// Loads the list of questions from the encrypted file.
-        /// </summary>
-        /// <returns>A list of questions.</returns>
         public List<Question> LoadQuestions()
         {
-            if (!File.Exists(QuestionsFilePath))
+            if (!File.Exists(_questionsFilePath))
             {
                 return new List<Question>();
             }
 
-            string encryptedData = File.ReadAllText(QuestionsFilePath);
+            string encryptedData = File.ReadAllText(_questionsFilePath);
             string decryptedData = EncryptionHelper.Decrypt(encryptedData);
             return DeserializeQuestions(decryptedData);
         }
 
-        /// <summary>
-        /// Saves the list of questions to the encrypted file.
-        /// </summary>
-        /// <param name="questions">The list of questions to save.</param>
         private void SaveQuestions(List<Question> questions)
         {
             string serializedData = SerializeQuestions(questions);
             string encryptedData = EncryptionHelper.Encrypt(serializedData);
-            File.WriteAllText(QuestionsFilePath, encryptedData);
+            File.WriteAllText(_questionsFilePath, encryptedData);
         }
 
         /// <summary>
