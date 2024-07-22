@@ -3,16 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireGame", "MillionaireGame\MillionaireGame.csproj", "{248EF9F0-C225-4F2F-AC0A-B871C989D6A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MillionaireGame", "MillionaireGame\MillionaireGame.csproj", "{248EF9F0-C225-4F2F-AC0A-B871C989D6A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireManagement", "MillionaireManagement\MillionaireManagement.csproj", "{043DBD3A-67DE-4047-BE6C-D8D033D33868}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MillionaireManagement", "MillionaireManagement\MillionaireManagement.csproj", "{043DBD3A-67DE-4047-BE6C-D8D033D33868}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F5606D5-F094-4595-804C-EE3AA66D26B0}"
-	ProjectSection(SolutionItems) = preProject
-		config.json = config.json
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireShared", "MillionaireShared\MillionaireShared.csproj", "{9B78BEF5-D9EE-437E-832B-F3AF67DE9498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MillionaireShared", "MillionaireShared\MillionaireShared.csproj", "{9B78BEF5-D9EE-437E-832B-F3AF67DE9498}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

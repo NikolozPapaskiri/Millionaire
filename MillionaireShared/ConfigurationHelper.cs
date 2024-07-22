@@ -10,7 +10,7 @@ public static class ConfigurationHelper
     {
         // Locate the solution directory and navigate to the MillionaireShared folder
         string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.FullName;
+        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
         return Path.Combine(solutionDir, "MillionaireShared", "config.json");
     }
 
