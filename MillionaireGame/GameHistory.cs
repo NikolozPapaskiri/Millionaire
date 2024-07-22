@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MillionaireShared; // Ensure the correct namespace is included
+using System;
 using System.IO;
 
 namespace MillionaireGame
@@ -9,7 +10,6 @@ namespace MillionaireGame
 
         public GameHistory()
         {
-            // Initialize the file path using the configuration helper
             _gameHistoryFilePath = ConfigurationHelper.GetFilePath("GameHistoryFilePath");
         }
 

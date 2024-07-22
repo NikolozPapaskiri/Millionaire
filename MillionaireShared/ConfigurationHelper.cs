@@ -1,39 +1,49 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
+using MillionaireShared;
 
-public static class ConfigurationHelper
+namespace MillionaireShared
 {
-    private static readonly string ConfigFilePath = GetConfigFilePath();
-
-    private static string GetConfigFilePath()
+    public static class ConfigurationHelper
     {
-        // Locate the solution directory and navigate to the MillionaireShared folder
-        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
-        return Path.Combine(solutionDir, "MillionaireShared", "config.json");
-    }
+        private static readonly string ConfigFilePath = GetConfigFilePath();
 
-    public static string GetFilePath(string key)
-    {
-        if (!File.Exists(ConfigFilePath))
+        private static string GetConfigFilePath()
         {
-            throw new FileNotFoundException("Configuration file not found.");
+            // Locate the solution directory and navigate to the MillionaireShared folder
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
+            return Path.Combine(solutionDir, "MillionaireShared", "config.json");
         }
 
-        string jsonString = File.ReadAllText(ConfigFilePath);
-        var config = JsonSerializer.Deserialize<Config>(jsonString);
-        return key switch
+        public static string GetFilePath(string key)
         {
-            "QuestionsFilePath" => config.QuestionsFilePath,
-            "GameHistoryFilePath" => config.GameHistoryFilePath,
-            _ => throw new ArgumentException("Invalid key")
-        };
-    }
+            if (!File.Exists(ConfigFilePath))
+            {
+                throw new FileNotFoundException("Configuration file not found.");
+            }
 
-    private class Config
-    {
-        public string QuestionsFilePath { get; set; }
-        public string GameHistoryFilePath { get; set; }
+            string jsonString = File.ReadAllText(ConfigFilePath);
+            var config = JsonSerializer.Deserialize<Config>(jsonString);
+
+            string relativePath = key switch
+            {
+                "QuestionsFilePath" => config.QuestionsFilePath,
+                "GameHistoryFilePath" => config.GameHistoryFilePath,
+                _ => throw new ArgumentException("Invalid key")
+            };
+
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.FullName;
+
+            return Path.Combine(solutionDir, relativePath);
+        }
+
+        private class Config
+        {
+            public string QuestionsFilePath { get; set; }
+            public string GameHistoryFilePath { get; set; }
+        }
     }
 }
