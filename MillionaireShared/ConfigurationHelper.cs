@@ -4,15 +4,24 @@ using System.Text.Json;
 
 public static class ConfigurationHelper
 {
+    private static readonly string ConfigFilePath = GetConfigFilePath();
+
+    private static string GetConfigFilePath()
+    {
+        // Locate the solution directory and navigate to the MillionaireShared folder
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.FullName;
+        return Path.Combine(solutionDir, "MillionaireShared", "config.json");
+    }
+
     public static string GetFilePath(string key)
     {
-        string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
-        if (!File.Exists(configPath))
+        if (!File.Exists(ConfigFilePath))
         {
             throw new FileNotFoundException("Configuration file not found.");
         }
 
-        string jsonString = File.ReadAllText(configPath);
+        string jsonString = File.ReadAllText(ConfigFilePath);
         var config = JsonSerializer.Deserialize<Config>(jsonString);
         return key switch
         {
