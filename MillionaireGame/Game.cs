@@ -21,7 +21,7 @@ namespace MillionaireGame
             LoadQuestions(); // Call method to load questions
         }
 
-        private void LoadQuestions()
+        public void LoadQuestions()
         {
             _questions = _questionManager.LoadQuestions();
 
@@ -46,7 +46,7 @@ namespace MillionaireGame
 
             while (_currentQuestionIndex < _questions.Count)
             {
-                //Console.Clear();
+                Console.Clear();
                 DisplayQuestion(_questions[_currentQuestionIndex]);
 
                 Console.Write("Type your answer: ");
@@ -78,7 +78,7 @@ namespace MillionaireGame
                 _currentQuestionIndex++;
             }
 
-            Console.WriteLine($"Correct answers: {_correctAnswers} \nWrong answers: {_wrongAnswers}");
+            Console.WriteLine($"Correct answers: {_correctAnswers} \nWrong answers: {_wrongAnswers} \nWon: {_amountWon}$");
             _gameHistory.SaveGameHistory(DateTime.Now, _questions.Count, _correctAnswers, _wrongAnswers, _amountWon);
         }
 
