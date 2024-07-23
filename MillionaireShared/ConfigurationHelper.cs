@@ -35,7 +35,7 @@ namespace MillionaireShared
             };
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.FullName;
+            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
 
             return Path.Combine(solutionDir, relativePath);
         }
