@@ -46,10 +46,25 @@ namespace MillionaireGame
 
             while (_currentQuestionIndex < _questions.Count)
             {
-                Console.Clear();
+                //Console.Clear();
                 DisplayQuestion(_questions[_currentQuestionIndex]);
 
+                Console.Write("Type your answer: ");
                 string userAnswer = Console.ReadLine();
+
+                while (userAnswer == null)
+                {
+                    Console.Write("Type your answer: ");
+                    userAnswer = Console.ReadLine();
+                }
+
+                while (!IsValidInput(userAnswer))
+                {
+                    Console.WriteLine("Invalid input. Please choose a, b, c, or d");
+                    Console.Write("Type your answer: ");
+                    userAnswer = Console.ReadLine();
+                }
+
                 if (IsAnswerCorrect(userAnswer))
                 {
                     _correctAnswers++;
@@ -63,6 +78,7 @@ namespace MillionaireGame
                 _currentQuestionIndex++;
             }
 
+            Console.WriteLine($"Correct answers: {_correctAnswers} \nWrong answers: {_wrongAnswers}");
             _gameHistory.SaveGameHistory(DateTime.Now, _questions.Count, _correctAnswers, _wrongAnswers, _amountWon);
         }
 
@@ -74,6 +90,11 @@ namespace MillionaireGame
             {
                 Console.WriteLine($"{(char)('A' + i)}. {question.Answers[i]}");
             }
+        }
+
+        private bool IsValidInput(string answeruserInput)
+        {
+            return answeruserInput.ToUpper() == "A" || answeruserInput.ToUpper() == "B" || answeruserInput.ToUpper() == "C" || answeruserInput.ToUpper() == "C";
         }
 
         private bool IsAnswerCorrect(string userAnswer)
