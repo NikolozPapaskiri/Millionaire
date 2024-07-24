@@ -30,18 +30,31 @@ namespace MillionaireManagement
                 {
                     questionManager.ClearQuestions();
                     Console.WriteLine("Questions deleted");
+                    Thread.Sleep(1000);
+                    continue;
                 }
 
                 if(choice == "1")
                 {
                     Console.Write("Enter the queston: ");
                     string questionText = Console.ReadLine();
+                    while (string.IsNullOrEmpty(questionText))
+                    {
+                        Console.Write("Input can't be empty: ");
+                        questionText = Console.ReadLine();
+                    }
 
                     List<string> answers = new List<string>();
                     for(int i = 0; i < 4; i++)
                     {
                         Console.Write($"Enter answer {(char)('A' + i)}: ");
-                        answers.Add(Console.ReadLine());
+                        string input = Console.ReadLine();
+                        while (string.IsNullOrEmpty(input))
+                        {
+                            Console.Write("Input can't be empty: ");
+                            input = Console.ReadLine();
+                        }
+                        answers.Add(input);
                     }
 
                     int correctAnswerIndex;
@@ -63,6 +76,7 @@ namespace MillionaireManagement
                     questionManager.AddQuestion(question);
 
                     Console.WriteLine("Question added successfully!");
+                    Thread.Sleep(1000);
                     continue;
                 }
             }
