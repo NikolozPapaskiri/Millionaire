@@ -1,49 +1,58 @@
 ﻿using System;
 using System.IO;
 using System.Text.Json;
-using MillionaireShared;
 
-namespace MillionaireShared
+public static class ConfigurationHelper
 {
-    public static class ConfigurationHelper
+    private static readonly string ConfigFilePath = GetConfigFilePath();
+
+    private static string GetConfigFilePath()
     {
-        private static readonly string ConfigFilePath = GetConfigFilePath();
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        // Navigate up to the solution directory
+        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
+        return Path.Combine(solutionDir, "MillionaireShared", "config.json");
+    }
 
-        private static string GetConfigFilePath()
+    public static string GetFilePath(string key)
+    {
+        if (!File.Exists(ConfigFilePath))
         {
-            // Locate the solution directory and navigate to the MillionaireShared folder
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
-            return Path.Combine(solutionDir, "MillionaireShared", "config.json");
+            CreateDefaultConfigFile();
+
         }
 
-        public static string GetFilePath(string key)
+        string jsonString = File.ReadAllText(ConfigFilePath);
+        var config = JsonSerializer.Deserialize<Config>(jsonString);
+
+        string relativePath = key switch
         {
-            if (!File.Exists(ConfigFilePath))
-            {
-                throw new FileNotFoundException("Configuration file not found.");
-            }
+            "QuestionsFilePath" => config.QuestionsFilePath,
+            "GameHistoryFilePath" => config.GameHistoryFilePath,
+            _ => throw new ArgumentException("Invalid key")
+        };
 
-            string jsonString = File.ReadAllText(ConfigFilePath);
-            var config = JsonSerializer.Deserialize<Config>(jsonString);
+        // Construct the absolute path
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
+        return Path.Combine(solutionDir, relativePath);
+    }
 
-            string relativePath = key switch
-            {
-                "QuestionsFilePath" => config.QuestionsFilePath,
-                "GameHistoryFilePath" => config.GameHistoryFilePath,
-                _ => throw new ArgumentException("Invalid key")
-            };
-
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string solutionDir = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
-
-            return Path.Combine(solutionDir, relativePath);
-        }
-
-        private class Config
+    private static void CreateDefaultConfigFile()
+    {
+        var defaultConfig = new Config
         {
-            public string QuestionsFilePath { get; set; }
-            public string GameHistoryFilePath { get; set; }
-        }
+            QuestionsFilePath = "MillionaireShared/Questions.txt",
+            GameHistoryFilePath = "MillionaireShared/GameHistory.txt"
+        };
+
+        string jsonString = JsonSerializer.Serialize(defaultConfig);
+        File.WriteAllText(ConfigFilePath, jsonString);
+
+    }
+    private class Config
+    {
+        public string QuestionsFilePath { get; set; }
+        public string GameHistoryFilePath { get; set; }
     }
 }

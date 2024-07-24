@@ -52,3 +52,15 @@ Correct Answers: 1
 Wrong Answers: 1
 Amount Won: 50
 
+Start Date: 7/24/2024 5:44:23 PM
+Total Questions: 2
+Correct Answers: 0
+Wrong Answers: 2
+Amount Won: 0
+
+Start Date: 7/24/2024 5:45:55 PM
+Total Questions: 1
+Correct Answers: 0
+Wrong Answers: 1
+Amount Won: 0
+
