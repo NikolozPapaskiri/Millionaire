@@ -16,13 +16,20 @@ namespace MillionaireManagement
                 Console.Clear();
                 Console.WriteLine("Welcome to the Question Management System");
                 Console.WriteLine("1. Add a new question");
-                Console.WriteLine("2. Exit");
+                Console.WriteLine("2. Delete existing questions");
+                Console.WriteLine("3. Exit");
                 Console.Write("Choose an option: ");
                 string choice = Console.ReadLine();
 
-                if(choice == "2")
+                if(choice == "3")
                 {
                     break;
+                }
+
+                if (choice == "2")
+                {
+                    questionManager.ClearQuestions();
+                    Console.WriteLine("Questions deleted");
                 }
 
                 if(choice == "1")
@@ -56,6 +63,7 @@ namespace MillionaireManagement
                     questionManager.AddQuestion(question);
 
                     Console.WriteLine("Question added successfully!");
+                    continue;
                 }
             }
         }

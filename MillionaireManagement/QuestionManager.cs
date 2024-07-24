@@ -16,6 +16,11 @@ namespace MillionaireManagement
             _questionsFilePath = ConfigurationHelper.GetFilePath("QuestionsFilePath");
         }
 
+        public void ClearQuestions()
+        {
+            File.WriteAllText(_questionsFilePath,"");
+        }
+
         public void AddQuestion(Question question)
         {
             List<Question> questions = LoadQuestions();

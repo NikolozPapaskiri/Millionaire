@@ -64,3 +64,21 @@ Correct Answers: 0
 Wrong Answers: 1
 Amount Won: 0
 
+Start Date: 7/25/2024 12:19:03 AM
+Total Questions: 1
+Correct Answers: 0
+Wrong Answers: 1
+Amount Won: 0
+
+Start Date: 7/25/2024 12:20:33 AM
+Total Questions: 2
+Correct Answers: 1
+Wrong Answers: 1
+Amount Won: 700
+
+Start Date: 7/25/2024 12:24:09 AM
+Total Questions: 2
+Correct Answers: 0
+Wrong Answers: 2
+Amount Won: 0
+
