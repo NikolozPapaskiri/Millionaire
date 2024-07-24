@@ -16,11 +16,11 @@ namespace MillionaireManagement
                 Console.Clear();
                 Console.WriteLine("Welcome to the Question Management System");
                 Console.WriteLine("1. Add a new question");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("2. Exit");
                 Console.Write("Choose an option: ");
                 string choice = Console.ReadLine();
 
-                if(choice == "3")
+                if(choice == "2")
                 {
                     break;
                 }
