@@ -94,7 +94,7 @@ namespace MillionaireGame
 
         private bool IsValidInput(string answeruserInput)
         {
-            return answeruserInput.ToUpper() == "A" || answeruserInput.ToUpper() == "B" || answeruserInput.ToUpper() == "C" || answeruserInput.ToUpper() == "C";
+            return answeruserInput.ToUpper() == "A" || answeruserInput.ToUpper() == "B" || answeruserInput.ToUpper() == "C" || answeruserInput.ToUpper() == "D";
         }
 
         private bool IsAnswerCorrect(string userAnswer)

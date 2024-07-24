@@ -61,14 +61,29 @@ namespace MillionaireManagement
 
                     while (true)
                     {
-                        Console.Write("Enter the index of the correct answer (0-3): ");
-                        if (int.TryParse(Console.ReadLine(), out correctAnswerIndex) && correctAnswerIndex >= 0 && correctAnswerIndex < 4)
-                        {
-                            break;
-                        }
-                        Console.WriteLine("Invalid input. Please enter a number between 0 and 3.");
-                    }
+                        Console.Write("Enter the letter of the correct answer (a, b, c, d): ");
+                        string input = Console.ReadLine().ToLower();
 
+                        try
+                        {
+                            correctAnswerIndex = input switch
+                            {
+                                "a" => 0,
+                                "b" => 1,
+                                "c" => 2,
+                                "d" => 3,
+                                _ => throw new ArgumentException("Invalid input. Please enter 'a', 'b', 'c', or 'd'.")
+                            };
+                        }
+                        catch (ArgumentException e)
+                        {
+                            Console.WriteLine(e.Message);
+                            continue;
+                        }
+
+                        break;
+                    }
+                    
                     Console.Write("Enter the monetary value of the question (e.g., $7,000): ");
                     string value = Console.ReadLine();
 
