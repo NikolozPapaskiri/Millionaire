@@ -1,10 +1,10 @@
-﻿using MillionaireGame;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MillionaireManagement;
 
-namespace MillionaireManagement
+namespace MillionaireShared
 {
     public class QuestionManager
     {

@@ -1,8 +1,9 @@
 ﻿using MillionaireManagement;
 using System;
 using System.Collections.Generic;
+using MillionaireShared;
 
-namespace MillionaireGame
+namespace MillionaireManagement
 {
     public class Program
     {

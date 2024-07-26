@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using MillionaireGame;
+using MillionaireShared;
+using static MillionaireShared.Enums;
 
 namespace MillionaireManagement
 {
@@ -57,22 +58,26 @@ namespace MillionaireManagement
                         answers.Add(input);
                     }
 
-                    int correctAnswerIndex;
+                    AnswerChoice correctAnswer;
+                    var validInputs = Enum.GetNames(typeof(AnswerChoice))
+                              .Select(name => name.ToLower())
+                              .ToArray();
+
 
                     while (true)
                     {
-                        Console.Write("Enter the letter of the correct answer (a, b, c, d): ");
+                        Console.Write($"Enter the letter of the correct answer ({string.Join(',', validInputs)}): ");
                         string input = Console.ReadLine().ToLower();
 
                         try
                         {
-                            correctAnswerIndex = input switch
+                            correctAnswer = input switch
                             {
-                                "a" => 0,
-                                "b" => 1,
-                                "c" => 2,
-                                "d" => 3,
-                                _ => throw new ArgumentException("Invalid input. Please enter 'a', 'b', 'c', or 'd'.")
+                                "a" => AnswerChoice.A,
+                                "b" => AnswerChoice.B,
+                                "c" => AnswerChoice.C,
+                                "d" => AnswerChoice.D,
+                                _ => throw new ArgumentException($"Invalid input. Please enter one of the following: {string.Join(',', validInputs)}.")
                             };
                         }
                         catch (ArgumentException e)
@@ -87,7 +92,7 @@ namespace MillionaireManagement
                     Console.Write("Enter the monetary value of the question (e.g., $7,000): ");
                     string value = Console.ReadLine();
 
-                    Question question = new Question(questionText, answers, correctAnswerIndex, value);
+                    Question question = new Question(questionText, answers, correctAnswer, value);
                     questionManager.AddQuestion(question);
 
                     Console.WriteLine("Question added successfully!");

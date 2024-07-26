@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace MillionaireShared
 {
-    internal class Enums
+    public class Enums
     {
+        public enum AnswerChoice
+        {
+            A,
+            B,
+            C,
+            D
+        }
+
+        public enum GameTip
+        {
+            FiftyFifty,
+            PhoneAFriend,
+            AskTheAudience
+        }
     }
 }

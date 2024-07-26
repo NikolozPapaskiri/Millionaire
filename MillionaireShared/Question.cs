@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MillionaireShared.Enums;
 
-namespace MillionaireManagement
+namespace MillionaireShared
 {
     public class Question
     {
@@ -13,11 +14,11 @@ namespace MillionaireManagement
         public AnswerChoice CorrectAnswer { get; set; }
         public string Value { get; set; }
 
-        public Question(string text, List<string> answers, int correctAnswerIndex, string value)
+        public Question(string text, List<string> answers, AnswerChoice correctAnswer, string value)
         {
             Text = text;
             Answers = answers;
-            CorrectAnswerIndex = correctAnswerIndex;
+            CorrectAnswer = correctAnswer;
             Value = value;
         }
     }

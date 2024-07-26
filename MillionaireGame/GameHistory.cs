@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace MillionaireGame
+namespace MillionaireManagement
 {
     public class GameHistory
     {

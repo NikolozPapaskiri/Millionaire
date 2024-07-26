@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MillionaireManagement; // Ensure the correct namespace is imported
+using MillionaireShared;
+using static MillionaireShared.Enums;
 
-namespace MillionaireGame
+namespace MillionaireManagement
 {
     public class Game
     {
@@ -31,13 +33,16 @@ namespace MillionaireGame
             {
                 Console.WriteLine($"Question: {question.Text}");
                 Console.WriteLine($"Answers: {string.Join(", ", question.Answers)}");
-                Console.WriteLine($"Correct Answer Index: {question.CorrectAnswerIndex}");
+                Console.WriteLine($"Correct Answer: {question.CorrectAnswer}");
                 Console.WriteLine($"Value: {question.Value}");
             }
         }
 
         public void Start()
         {
+            var validInputs = Enum.GetNames(typeof(AnswerChoice))
+                              .Select(name => name.ToLower())
+                              .ToArray();
             if (_questions.Count == 0)
             {
                 Console.WriteLine("No questions available. Exiting the game.");
@@ -51,17 +56,19 @@ namespace MillionaireGame
                 DisplayAvailableTips();
 
                 Console.Write("Type your answer: ");
-                string userAnswer = Console.ReadLine();
+                string userInput = Console.ReadLine();
 
-                while (userAnswer == null)
+                while (userInput == null)
                 {
                     Console.Write("Type your answer: ");
-                    userAnswer = Console.ReadLine();
+                    userInput = Console.ReadLine();
                 }
+
+                AnswerChoice userAnswer = 
 
                 while (!IsValidInput(userAnswer))
                 {
-                    Console.WriteLine($"Invalid input. Please choose {AnswerChoice.}");
+                    Console.WriteLine($"Invalid input. Please choose {validInputs}");
                     Console.Write("Type your answer: ");
                     userAnswer = Console.ReadLine();
                 }
@@ -106,10 +113,10 @@ namespace MillionaireGame
             return answeruserInput.ToUpper() == "A" || answeruserInput.ToUpper() == "B" || answeruserInput.ToUpper() == "C" || answeruserInput.ToUpper() == "D";
         }
 
-        private bool IsAnswerCorrect(string userAnswer)
+        private AnswerChoice IsAnswerCorrect(string userAnswer)
         {
-            int answerIndex = userAnswer.ToUpper()[0] - 'A';
-            return answerIndex == _questions[_currentQuestionIndex].CorrectAnswerIndex;
+            AnswerChoice answerIndex;
+            return answerIndex = _questions[_currentQuestionIndex].CorrectAnswer;
         }
     }
 }
