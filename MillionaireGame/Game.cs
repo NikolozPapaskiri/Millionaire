@@ -14,6 +14,22 @@ namespace MillionaireGame
         private int _wrongAnswers;
         private int _amountWon;
 
+        public enum AnswerChoice
+        {
+            A,
+            B,
+            C,
+            D
+        }
+
+        public enum GameTip
+        {
+            FiftyFifty,
+            PhoneAFriend,
+            AskTheAudience
+        }
+
+
         public Game(QuestionManager questionManager, GameHistory gameHistory)
         {
             _questionManager = questionManager;
