@@ -10,7 +10,7 @@ namespace MillionaireManagement
     {
         public string Text { get; set; }
         public List<string> Answers { get; set; }
-        public int CorrectAnswerIndex { get; set; }
+        public AnswerChoice CorrectAnswer { get; set; }
         public string Value { get; set; }
 
         public Question(string text, List<string> answers, int correctAnswerIndex, string value)
