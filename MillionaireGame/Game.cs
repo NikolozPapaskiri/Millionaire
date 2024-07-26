@@ -48,6 +48,7 @@ namespace MillionaireGame
             {
                 Console.Clear();
                 DisplayQuestion(_questions[_currentQuestionIndex]);
+                DisplayAvailableTips();
 
                 Console.Write("Type your answer: ");
                 string userAnswer = Console.ReadLine();
@@ -90,6 +91,14 @@ namespace MillionaireGame
             {
                 Console.WriteLine($"{(char)('A' + i)}. {question.Answers[i]}");
             }
+        }
+
+        private void DisplayAvailableTips()
+        {
+            Console.WriteLine("__Other Optins__");
+            Console.WriteLine("50:50");
+            Console.WriteLine("Phone a friend");
+            Console.WriteLine("Ask the audience");
         }
 
         private bool IsValidInput(string answeruserInput)
