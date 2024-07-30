@@ -4,7 +4,7 @@ using MillionaireManagement; // Ensure the correct namespace is imported
 using MillionaireShared;
 using static MillionaireShared.Enums;
 
-namespace MillionaireManagement
+namespace MillionaireGame
 {
     public class Game
     {
@@ -64,16 +64,14 @@ namespace MillionaireManagement
                     userInput = Console.ReadLine();
                 }
 
-                AnswerChoice userAnswer = 
-
-                while (!IsValidInput(userAnswer))
+                while (!IsValidInput(userInput))
                 {
                     Console.WriteLine($"Invalid input. Please choose {validInputs}");
                     Console.Write("Type your answer: ");
-                    userAnswer = Console.ReadLine();
+                    userInput = Console.ReadLine();
                 }
 
-                if (IsAnswerCorrect(userAnswer))
+                if (IsAnswerCorrect(userInput) )
                 {
                     _correctAnswers++;
                     _amountWon = int.Parse(_questions[_currentQuestionIndex].Value.Replace("$", "").Replace(",", ""));
@@ -103,9 +101,9 @@ namespace MillionaireManagement
         private void DisplayAvailableTips()
         {
             Console.WriteLine("__Other Optins__");
-            Console.WriteLine("50:50");
-            Console.WriteLine("Phone a friend");
-            Console.WriteLine("Ask the audience");
+            Console.WriteLine("1. 50:50");
+            Console.WriteLine("2. Phone a friend");
+            Console.WriteLine("3. Ask the audience");
         }
 
         private bool IsValidInput(string answeruserInput)

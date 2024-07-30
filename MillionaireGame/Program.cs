@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using MillionaireShared;
 
-namespace MillionaireManagement
+namespace MillionaireGame
 {
     public class Program
     {
