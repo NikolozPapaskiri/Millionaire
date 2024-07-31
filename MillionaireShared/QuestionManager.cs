@@ -9,6 +9,7 @@ namespace MillionaireShared
     public class QuestionManager
     {
         private readonly string _questionsFilePath;
+        EncryptionHelper encryptionHelper = new EncryptionHelper();
 
         public QuestionManager()
         {
@@ -36,14 +37,14 @@ namespace MillionaireShared
             }
 
             string encryptedData = File.ReadAllText(_questionsFilePath);
-            string decryptedData = EncryptionHelper.Decrypt(encryptedData);
+            string decryptedData = encryptionHelper.Decrypt(encryptedData);
             return DeserializeQuestions(decryptedData);
         }
 
         private void SaveQuestions(List<Question> questions)
         {
             string serializedData = SerializeQuestions(questions);
-            string encryptedData = EncryptionHelper.Encrypt(serializedData);
+            string encryptedData = encryptionHelper.Encrypt(serializedData);
             File.WriteAllText(_questionsFilePath, encryptedData);
         }
 
@@ -52,7 +53,7 @@ namespace MillionaireShared
         /// </summary>
         /// <param name="questions">The list of questions to serialize.</param>
         /// <returns>A serialized string representing the list of questions.</returns>
-        private string SerializeQuestions(List<Question> questions)
+        public string SerializeQuestions(List<Question> questions)
         {
             StringBuilder sb = new StringBuilder();
             foreach (var question in questions)
@@ -67,7 +68,7 @@ namespace MillionaireShared
         /// </summary>
         /// <param name="data">The string data to deserialize.</param>
         /// <returns>A list of questions.</returns>
-        private List<Question> DeserializeQuestions(string data)
+        public List<Question> DeserializeQuestions(string data)
         {
             List<Question> questions = new List<Question>();
             string[] lines = data.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
