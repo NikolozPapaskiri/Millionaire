@@ -42,7 +42,7 @@ namespace MillionaireShared
             char first = answer, Second = suggestion[suggestion1];
             int random = rnd.Next(3, 50);
             for (int i = 1; i <= random; i++) { (first, Second) = (Second, first); }
-            Console.WriteLine($"{first}: {DeserializeQuestions(answers[(questionumber - 1) * 5 + first - 'A' + 1], Program.key)}" + "\n" + $"{Second}: {Decrypt(answers[(questionumber - 1) * 5 + Second - 'A' + 1], Program.key)}" + "\n");
+            Console.WriteLine($"{first}: {Decrypt(answers[(questionumber - 1) * 5 + first - 'A' + 1], Program.key)}" + "\n" + $"{Second}: {Decrypt(answers[(questionumber - 1) * 5 + Second - 'A' + 1], Program.key)}" + "\n");
             fiftyFifty = 1;
         }
 
